@@ -153,24 +153,16 @@ define([
     };
 
     function set_emacs_mode() {
-        // CodeMirror.commands.leaveCurrentMode = function(cm) {
-        //     if ( cm.state.emacs.insertMode ) {
-        //         // Move from insert mode into command mode.
-        //         CodeMirror.keyMap['vim-insert'].call('Esc', cm);
-        //     } else if ( cm.state.vim.visualMode ) {
-        //         // Move from visual mode to command mode.
-        //         CodeMirror.keyMap['vim'].call('Esc', cm);
-        //     } else {
-        //         // Move to notebook command mode.
-        //         IPython.notebook.command_mode();
-        //         IPython.notebook.focus_cell();
-        //     }
-        // };
+        CodeMirror.commands.leaveCurrentMode = function(cm) {
+            // Move to notebook command mode.
+            IPython.notebook.command_mode();
+            IPython.notebook.focus_cell();
+        };
 
         var update_cm_config = function(cm_config) {
             cm_config["emacsMode"] = true;
             cm_config["keyMap"] = 'emacs';
-            // cm_config["extraKeys"]["Esc"] = 'leaveCurrentMode';
+            cm_config["extraKeys"]["Esc"] = 'leaveCurrentMode';
             // cm_config["extraKeys"]["Ctrl-["] = 'leaveCurrentMode';
         }
 
@@ -203,34 +195,34 @@ define([
         edit.remove_shortcut("esc")
         edit.add_shortcut("shift-esc", default_edit["esc"])
         edit.remove_shortcut("ctrl-shift--")
-        
+
         var emacs_command_shortcuts = {
             // "ctrl-c" : "ipython.interrupt-kernel",
             // "ctrl-c" : "ipython.split-cell-at-cursor'",
-        //     "ctrl-z" : "ipython.restart-kernel",
+            //     "ctrl-z" : "ipython.restart-kernel",
 
-        //     "d,d" : "ipython.cut-selected-cell",
-        //     "y,y" : 'ipython.copy-selected-cell',
-        //     "u" : 'ipython.undo-last-cell-deletion',
+            //     "d,d" : "ipython.cut-selected-cell",
+            //     "y,y" : 'ipython.copy-selected-cell',
+            //     "u" : 'ipython.undo-last-cell-deletion',
 
-        //     "p" : 'ipython.paste-cell-after',
-        //     "shift-p" : 'ipython.paste-cell-before',
+            //     "p" : 'ipython.paste-cell-after',
+            //     "shift-p" : 'ipython.paste-cell-before',
 
-        //     "o" : "ipython.insert-cell-after",
-        //     "shift-o" : "ipython.insert-cell-before",
+            //     "o" : "ipython.insert-cell-after",
+            //     "shift-o" : "ipython.insert-cell-before",
 
-        //     "i" : 'ipython.enter-edit-mode',
-        //     "enter" : 'ipython.enter-edit-mode',
+            //     "i" : 'ipython.enter-edit-mode',
+            //     "enter" : 'ipython.enter-edit-mode',
 
-        //     "shift-j" : "ipython.move-selected-cell-down",
-        //     "shift-k" : "ipython.move-selected-cell-up",
+            //     "shift-j" : "ipython.move-selected-cell-down",
+            //     "shift-k" : "ipython.move-selected-cell-up",
 
-        //     "shift-/" : 'ipython.show-keyboard-shortcut-help-dialog',
-        //     "h" : 'ipython.toggle-output-visibility-selected-cell',
-        //     "shift-h" : 'ipython.toggle-output-scrolling-selected-cell',
+            //     "shift-/" : 'ipython.show-keyboard-shortcut-help-dialog',
+            //     "h" : 'ipython.toggle-output-visibility-selected-cell',
+            //     "shift-h" : 'ipython.toggle-output-scrolling-selected-cell',
 
-        //     "`" : 'ipython.change-selected-cell-to-code-cell',
-        //     "0" : 'ipython.change-selected-cell-to-markdown-cell',
+            //     "`" : 'ipython.change-selected-cell-to-code-cell',
+            //     "0" : 'ipython.change-selected-cell-to-markdown-cell',
         }
 
         update_shortcuts( IPython.keyboard_manager.command_shortcuts, emacs_command_shortcuts );
